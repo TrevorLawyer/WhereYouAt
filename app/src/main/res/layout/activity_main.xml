@@ -1,18 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="edu.uco.tlawyer.whereyouat.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@drawable/homescreen"
+        android:columnCount="2"
+        android:orientation="vertical"
+        android:rowCount="10">
+
+        <TextView
+            android:id="@+id/TextViewUsername"
+            android:layout_column="0"
+            android:layout_columnWeight="0"
+            android:layout_marginTop="20dp"
+            android:layout_row="0"
+            android:background="#ffffff"
+            android:text="@string/username"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/TextViewPassword"
+            android:layout_column="0"
+            android:layout_columnWeight="0"
+            android:layout_marginTop="20dp"
+            android:layout_row="1"
+            android:background="#ffffff"
+            android:text="@string/password"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+
+        <EditText
+            android:id="@+id/EditTextUsername"
+            android:layout_column="1"
+            android:layout_columnWeight="0"
+            android:layout_marginTop="20dp"
+            android:layout_row="0"
+            android:background="#ffffff"
+            android:hint="@string/usernameLog"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/EditTextPassword"
+            android:layout_column="1"
+            android:layout_columnWeight="0"
+            android:layout_marginTop="20dp"
+            android:layout_row="1"
+            android:background="#ffffff"
+            android:hint="@string/passMin"
+            android:inputType="textPassword"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+
+        <Button
+            android:id="@+id/ButtonLogin"
+            android:layout_columnSpan="2"
+            android:layout_marginTop="20dp"
+            android:layout_row="3"
+            android:background="#00e232"
+            android:text="Login"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/ButtonRegister"
+            android:layout_width="match_parent"
+            android:layout_column="0"
+            android:layout_columnSpan="2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_row="9"
+            android:background="#ff0000"
+            android:text="Create New Account"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
+
+    </GridLayout>
+
+
+</LinearLayout>
