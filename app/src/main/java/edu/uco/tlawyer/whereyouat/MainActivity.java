@@ -41,27 +41,19 @@ public class MainActivity extends AppCompatActivity {
                 // System.out.println(" input :" +inputUsername + ":");
 
                 //checks if password and username are not empty
-                if(!inputPassword.matches("") && !inputUsername.matches("") ){
+                if (!inputPassword.matches("") && !inputUsername.matches("")) {
 
-                    if(inputPassword.length() < 6){
+                    if (inputPassword.length() < 6) {
                         Toast.makeText(MainActivity.this, "Invalid Password Length", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
+
+                        //check passwork and username before proceeding to login page
                         Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
-                        startActivityForResult(intent,1);
+                        startActivityForResult(intent, 1);
 
                     }
 
-
-                    // array or database for username and password to make usre it is correct
-
-                    if(true){
-                        /// tesat
-                        //test
-                        Toast.makeText(MainActivity.this, "get rid of error", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                else {
+                } else {
                     Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -72,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(MainActivity.this, RegisterUserActivity.class);
-                startActivityForResult(intent,2);
+                startActivityForResult(intent, 2);
 
             }
         });
