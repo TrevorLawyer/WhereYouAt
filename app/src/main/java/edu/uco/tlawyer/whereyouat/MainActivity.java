@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 //checks if password and username are not empty
                 if (!inputPassword.matches("") && !inputUsername.matches("")) {
 
-                    if (inputPassword.length() < 6) {
+                    if (inputPassword.length() < 1) {
                         Toast.makeText(MainActivity.this, "Invalid Password Length", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        //check passwork and username before proceeding to login page
+                        //check password and username before proceeding to login page
                         Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
                         startActivityForResult(intent, 1);
 
