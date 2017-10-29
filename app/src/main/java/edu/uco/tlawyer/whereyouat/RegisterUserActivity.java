@@ -33,9 +33,14 @@ public class RegisterUserActivity extends AppCompatActivity {
 
                 //intialize stings values
                 email = regEmail.getText().toString();
-                checkEmail(email);
+                password = regPassword.getText().toString();
+                passwordCheck = confirmPass.getText().toString();
 
-                if(emailTest == true){
+                //calls functions
+                checkEmail(email);
+                checkPassword(password);
+
+                if (emailTest == true && passwordTest == true) {
                     Toast.makeText(RegisterUserActivity.this, "Valid Registration", Toast.LENGTH_SHORT).show();
                 }
 
@@ -45,6 +50,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     }
 
+    //checks if email meets criteria
     public String checkEmail(String email) {
 
         //intialize stings values
@@ -55,7 +61,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         emailTest = false;
         if (email.contains("@") && email.contains(".com")) {
             if (email.length() > 6) {
-                Toast.makeText(RegisterUserActivity.this, "Valid Email", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RegisterUserActivity.this, "Valid Email", Toast.LENGTH_SHORT).show();
                 emailTest = true;
             } else
                 Toast.makeText(RegisterUserActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
@@ -64,5 +70,25 @@ public class RegisterUserActivity extends AppCompatActivity {
             Toast.makeText(RegisterUserActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
         }
         return email;
+    }
+
+    //checks if passwords were typed the same
+    public String checkPassword(String password) {
+
+        passwordTest = false;
+
+        if (password.equals(passwordCheck)) {
+
+            if (password.length() > 6) {
+                passwordTest = true;
+                return password;
+            } else {
+                Toast.makeText(RegisterUserActivity.this, "Min 6 Pass Chars", Toast.LENGTH_SHORT).show();
+                return password;
+            }
+
+        }
+        Toast.makeText(RegisterUserActivity.this, "Password Dont Match", Toast.LENGTH_SHORT).show();
+        return password;
     }
 }
