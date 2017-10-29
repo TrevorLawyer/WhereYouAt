@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">WhereYouAt</string>
     <string name="retype">Retype Pass</string>
-    <string name="confirm">Confirm Pass</string>
+    <string name="confirm">Confirm Pass: </string>
     <string name="passMin">Six Chars Min</string>
     <string name="password">Password: </string>
     <string name="username">Username: </string>
-    <string name="numberMin"> 10 Digit Number</string>
-    <string name="number">Phone Number: </string>
+    <string name="emailHint">Email: </string>
+    <string name="email">Email: </string>
     <string name="usernameHint">Any Charaters</string>
     <string name="usernameLog">Username</string>
 </resources>

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="play-services-wearable-11.0.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/72be268a9014d61529c23501d0ad355757be8f74/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/72be268a9014d61529c23501d0ad355757be8f74/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/16697e4208fdbfac4af0235401b8db6931b188cb/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/16697e4208fdbfac4af0235401b8db6931b188cb/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

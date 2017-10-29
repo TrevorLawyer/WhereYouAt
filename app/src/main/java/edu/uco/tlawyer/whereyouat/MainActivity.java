@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 //checks if password and username are not empty
                 if (!inputPassword.matches("") && !inputUsername.matches("")) {
 
-                    if (inputPassword.length() < 1) {
+                    if (inputPassword.length() < 6) {
                         Toast.makeText(MainActivity.this, "Invalid Password Length", Toast.LENGTH_SHORT).show();
                     } else {
 
