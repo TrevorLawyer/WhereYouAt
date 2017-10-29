@@ -1,9 +1,9 @@
 package edu.uco.tlawyer.whereyouat;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,7 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
-public class LoginSuccessActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class LoginSuccessActivity extends Activity implements OnMapReadyCallback {
     GoogleMap gmap;
     MapFragment mmap;
 
@@ -23,8 +23,9 @@ public class LoginSuccessActivity extends AppCompatActivity implements OnMapRead
         mmap = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.trackmap);
         mmap.getMapAsync(this);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setActionBar(toolbar);
+
 
 
     }

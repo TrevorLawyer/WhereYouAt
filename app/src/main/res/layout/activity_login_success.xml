@@ -27,12 +27,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="1.0" />
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:title="WhereYouAt"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="56dp"
+        android:background="@android:color/holo_blue_bright" />
+
 </android.support.constraint.ConstraintLayout>
