@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-feature android:name="android.hardware.location.gps"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +24,8 @@
         </activity>
         <activity android:name=".RegisterUserActivity" />
         <activity android:name=".LoginSuccessActivity" />
-        <activity android:name=".ContactsActivity"></activity>
+        <activity android:name=".ContactsActivity"/>
+        <activity android:name=".RequestActivity"></activity>
         <service
             android:name=".FirebaseTokenID">
             <intent-filter>
