@@ -9,4 +9,6 @@
     <string name="email">Email: </string>
     <string name="usernameHint">Any Charaters</string>
     <string name="usernameLog">Username</string>
+    <string name="sendReq">Send request to?</string>
+    <string name="sendReqButton">Select user</string>
 </resources>

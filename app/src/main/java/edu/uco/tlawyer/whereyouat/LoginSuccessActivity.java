@@ -50,7 +50,10 @@ public class LoginSuccessActivity extends Activity implements OnMapReadyCallback
                 Intent intent = new Intent(LoginSuccessActivity.this, ContactsActivity.class);
                 startActivity(intent);
                 return true;
-
+            case R.id.requests:
+                Intent reqIntent = new Intent(LoginSuccessActivity.this, RequestActivity.class);
+                startActivity(reqIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
