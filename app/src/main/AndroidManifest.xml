@@ -2,12 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.uco.tlawyer.whereyouat">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-feature android:name="android.hardware.location.gps"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,13 +21,17 @@
         </activity>
         <activity android:name=".RegisterUserActivity" />
         <activity android:name=".LoginSuccessActivity" />
-        <activity android:name=".ContactsActivity" />
+        <activity android:name=".ContactsActivity"></activity>
+        <service
+            android:name=".FirebaseTokenID">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC2PLeCaZB2blU3eaWWXlVwGQs4-b_0nwQ" />
-
-        <activity android:name=".RequestActivity"></activity>
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBvNlk3W-30QSKgqrRwKnAXhfGF-0O9UxQ" />
     </application>
 
 </manifest>

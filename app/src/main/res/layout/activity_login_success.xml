@@ -33,6 +33,8 @@
         android:title="WhereYouAt"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@android:color/holo_blue_bright" />
+        android:background="@android:color/holo_blue_bright"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp" />
 
 </android.support.constraint.ConstraintLayout>
