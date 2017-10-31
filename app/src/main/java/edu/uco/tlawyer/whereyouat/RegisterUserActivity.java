@@ -79,7 +79,7 @@ public class RegisterUserActivity extends Activity {
 
         if (password.equals(passwordCheck)) {
 
-            if (password.length() > 6) {
+            if (password.length() > 5) {
                 passwordTest = true;
                 return password;
             } else {
