@@ -2,10 +2,17 @@ package edu.uco.tlawyer.whereyouat;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterUserActivity extends Activity {
 
@@ -13,6 +20,9 @@ public class RegisterUserActivity extends Activity {
     Button regRegister;
     String email, username, password, passwordCheck;
     Boolean emailTest, usernameTest, passwordTest = false;
+
+    //athentication
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +36,9 @@ public class RegisterUserActivity extends Activity {
         confirmPass = (EditText) findViewById(R.id.EditTextConfirmPassword);
         regRegister = (Button) findViewById(R.id.registerButtonRegister);
 
+        // athentication intialization
+        auth = FirebaseAuth.getInstance();
+
 
         regRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,20 +48,43 @@ public class RegisterUserActivity extends Activity {
                 email = regEmail.getText().toString();
                 password = regPassword.getText().toString();
                 passwordCheck = confirmPass.getText().toString();
+                username = regUsername.getText().toString();
+
 
                 //calls functions
                 checkEmail(email);
                 checkPassword(password);
 
-                if (emailTest == true && passwordTest == true) {
-                    Toast.makeText(RegisterUserActivity.this, "Valid Registration", Toast.LENGTH_SHORT).show();
+                if (emailTest == true && passwordTest == true && !username.isEmpty() && !username.equals("")) {
+
+                   // Toast.makeText(RegisterUserActivity.this, "Valid Registration", Toast.LENGTH_SHORT).show();
+
+                    auth.createUserWithEmailAndPassword(email,password)
+                            .addOnCompleteListener(RegisterUserActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        //taks is successful
+                                        Toast.makeText(RegisterUserActivity.this, "Task.isSuccessful", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        // failed
+                                        Toast.makeText(RegisterUserActivity.this, "Task failed", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
                 }
 
+            }
+
+            private void updateUI(FirebaseUser user) {
             }
         });
 
 
     }
+
 
     //checks if email meets criteria
     public String checkEmail(String email) {
@@ -91,4 +127,13 @@ public class RegisterUserActivity extends Activity {
         Toast.makeText(RegisterUserActivity.this, "Password Dont Match", Toast.LENGTH_SHORT).show();
         return password;
     }
+
+//    //checks if user is signed in
+//    @Override
+//    public void onStart(){
+//        super.onStart();
+//        //checks if user is singed in (non-nul)
+//        FirebaseUser currentUser = auth.getCurrentUser();
+//        updateUI(currentUser);
+//    }
 }
