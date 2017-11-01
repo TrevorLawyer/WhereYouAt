@@ -4,10 +4,10 @@
     <string name="confirm">Confirm Pass: </string>
     <string name="passMin">Six Chars Min</string>
     <string name="password">Password: </string>
-    <string name="username">Username: </string>
+    <string name="username">Phone Number</string>
     <string name="emailHint">Email: </string>
     <string name="email">Email: </string>
-    <string name="usernameHint">Any Charaters</string>
+    <string name="usernameHint">10 digit Number</string>
     <string name="usernameLog">Username</string>
     <string name="sendReq">Send request to?</string>
     <string name="sendReqButton">Select user</string>

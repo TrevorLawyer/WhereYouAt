@@ -16,10 +16,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterUserActivity extends Activity {
 
-    EditText regPassword, regEmail, regUsername, confirmPass;
+    EditText regPassword, regEmail, regPhoneNumber, confirmPass;
     Button regRegister;
-    String email, username, password, passwordCheck;
-    Boolean emailTest, usernameTest, passwordTest = false;
+    String email, phoneNumber, password, passwordCheck;
+    Boolean emailTest, phoneTest, passwordTest = false;
 
     //athentication
     private FirebaseAuth auth;
@@ -31,7 +31,7 @@ public class RegisterUserActivity extends Activity {
 
         //declare variables
         regEmail = (EditText) findViewById(R.id.EditTextEmail);
-        regUsername = (EditText) findViewById(R.id.EditTextUsername2);
+        regPhoneNumber = (EditText) findViewById(R.id.EditPhoneNumber);
         regPassword = (EditText) findViewById(R.id.EditTextPassword2);
         confirmPass = (EditText) findViewById(R.id.EditTextConfirmPassword);
         regRegister = (Button) findViewById(R.id.registerButtonRegister);
@@ -48,14 +48,15 @@ public class RegisterUserActivity extends Activity {
                 email = regEmail.getText().toString();
                 password = regPassword.getText().toString();
                 passwordCheck = confirmPass.getText().toString();
-                username = regUsername.getText().toString();
+                phoneNumber = regPhoneNumber.getText().toString();
 
 
                 //calls functions
                 checkEmail(email);
                 checkPassword(password);
+                checkPhoneNumber(phoneNumber);
 
-                if (emailTest == true && passwordTest == true && !username.isEmpty() && !username.equals("")) {
+                if (emailTest == true && passwordTest == true && phoneTest == true) {
 
                    // Toast.makeText(RegisterUserActivity.this, "Valid Registration", Toast.LENGTH_SHORT).show();
 
@@ -65,11 +66,11 @@ public class RegisterUserActivity extends Activity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
                                         //taks is successful
-                                        Toast.makeText(RegisterUserActivity.this, "Task.isSuccessful", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterUserActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                                     }
                                     else{
                                         // failed
-                                        Toast.makeText(RegisterUserActivity.this, "Task failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterUserActivity.this, "Account With Email Already Exist", Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
@@ -126,6 +127,16 @@ public class RegisterUserActivity extends Activity {
         }
         Toast.makeText(RegisterUserActivity.this, "Password Dont Match", Toast.LENGTH_SHORT).show();
         return password;
+    }
+
+    public void checkPhoneNumber(String number){
+        if(number.length() != 10 || number.isEmpty() || number.equals("")){
+            phoneTest = false;
+            Toast.makeText(RegisterUserActivity.this, "Invalid Phone Number", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        phoneTest = true;
+
     }
 
 //    //checks if user is signed in
