@@ -3,15 +3,16 @@ package edu.uco.tlawyer.whereyouat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends Activity {
 
@@ -20,11 +21,8 @@ public class MainActivity extends Activity {
     Button registerButton, signinButton;
 
     //firebase Auth
-    private FirebaseAuth fbAuth;
+    private FirebaseAuth singinAuth;
 
-    //firebase database
-    FirebaseDatabase database;
-    DatabaseReference dbRef;
     //Strings
     String inputUsername, inputPassword = null;
 
@@ -43,11 +41,8 @@ public class MainActivity extends Activity {
         signinButton = (Button) findViewById(R.id.ButtonLogin);
 
         //Auth
-        fbAuth = FirebaseAuth.getInstance();
+        singinAuth = FirebaseAuth.getInstance();
 
-        //database intialize
-        database = FirebaseDatabase.getInstance();
-        dbRef = FirebaseDatabase.getInstance().getReference("Artist");
 
         //send values to database  https://mobileapps-final.firebaseio.com/
 
@@ -69,34 +64,27 @@ public class MainActivity extends Activity {
                         Toast.makeText(MainActivity.this, "Invalid Password Length", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        String name = user.getDisplayName();
+//                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                        String name = user.getDisplayName();
 
+                        singinAuth.signInWithEmailAndPassword(inputUsername,inputPassword)
+                                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(task.isSuccessful()){
+                                            //forward to the login page
+                                            //check password and username before proceeding to login page
+                                            Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
+                                            startActivityForResult(intent, 1);
 
-//                        //fbAuth.signInWithCredential(showell2121);
-//                        fbAuth.signInWithEmailAndPassword("showell2121", "showell2121")
-//                                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                                        if (task.isSuccessful()) {
-//                                            // Sign in success, update UI with the signed-in user's information
-//                                            Log.d(TAG, "signInWithEmail:success");
-//                                            FirebaseUser user = fbAuth.getCurrentUser();
-//                                            updateUI(user);
-//                                        } else {
-//                                            // If sign in fails, display a message to the user.
-//                                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                                            Toast.makeText(MainActivity.this, "Authentication failed.",
-//                                                    Toast.LENGTH_SHORT).show();
-//                                            updateUI(null);
-//                                        }
-//
-//                                        // ...
-//                                    }
-//                                });
-                        //check password and username before proceeding to login page
-                        Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
-                        startActivityForResult(intent, 1);
+                                        }
+                                        else{
+                                            // failed ot log in
+                                            Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
 
                     }
 
