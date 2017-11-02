@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUserActivity extends Activity {
 
@@ -21,8 +23,12 @@ public class RegisterUserActivity extends Activity {
     String email, phoneNumber, password, passwordCheck;
     Boolean emailTest, phoneTest, passwordTest = false;
 
+
     //athentication
     private FirebaseAuth auth;
+
+    //firebase database
+    DatabaseReference firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,8 @@ public class RegisterUserActivity extends Activity {
 
         // athentication intialization
         auth = FirebaseAuth.getInstance();
+        // database intialization
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
 
 
         regRegister.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +53,7 @@ public class RegisterUserActivity extends Activity {
             public void onClick(View v) {
 
                 //intialize stings values
-                email = regEmail.getText().toString();
+                email = regEmail.getText().toString().trim();
                 password = regPassword.getText().toString();
                 passwordCheck = confirmPass.getText().toString();
                 phoneNumber = regPhoneNumber.getText().toString();
@@ -56,15 +64,31 @@ public class RegisterUserActivity extends Activity {
                 checkPassword(password);
                 checkPhoneNumber(phoneNumber);
 
+                //insert into database
+//                DatabaseReference conditionRef = firebaseDatabase.child("condition");
+//                conditionRef.setValue("cold");
+
+
+//                //insert into database
+//                firebaseDatabase.child("user").child("dd").setValue("hello");
+
+
                 if (emailTest == true && passwordTest == true && phoneTest == true) {
 
-                   // Toast.makeText(RegisterUserActivity.this, "Valid Registration", Toast.LENGTH_SHORT).show();
+
+                    // Toast.makeText(RegisterUserActivity.this, "Valid Registration", Toast.LENGTH_SHORT).show();
 
                     auth.createUserWithEmailAndPassword(email,password)
                             .addOnCompleteListener(RegisterUserActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
+
+                                        System.out.println("email " + email);
+                                        UserClass testUser = new UserClass(email);
+                                    //insert into database
+                                    firebaseDatabase.child("user").setValue(testUser);
+
                                         //taks is successful
                                         Toast.makeText(RegisterUserActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                                     }

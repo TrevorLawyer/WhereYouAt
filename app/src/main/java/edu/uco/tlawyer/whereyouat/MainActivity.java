@@ -44,13 +44,10 @@ public class MainActivity extends Activity {
         singinAuth = FirebaseAuth.getInstance();
 
 
-        //send values to database  https://mobileapps-final.firebaseio.com/
-
-
-
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //sets varables that were entered in
                 inputUsername = usernameInput.getText().toString();
                 inputPassword = passwordInput.getText().toString();
@@ -72,7 +69,7 @@ public class MainActivity extends Activity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if(task.isSuccessful()){
-                                            //forward to the login page
+
                                             //check password and username before proceeding to login page
                                             Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
                                             startActivityForResult(intent, 1);
@@ -82,6 +79,7 @@ public class MainActivity extends Activity {
                                             // failed ot log in
                                             Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
                                         }
+
                                     }
                                 });
 
