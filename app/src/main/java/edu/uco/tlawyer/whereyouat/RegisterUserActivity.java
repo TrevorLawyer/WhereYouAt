@@ -18,10 +18,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUserActivity extends Activity {
 
-    EditText regPassword, regEmail, regPhoneNumber, confirmPass;
+    EditText regPassword, regEmail, regPhoneNumber, confirmPass, username;
     Button regRegister;
-    String email, phoneNumber, password, passwordCheck;
-    Boolean emailTest, phoneTest, passwordTest = false;
+    String email, phoneNumber, password, passwordCheck , usernameString;
+    Boolean emailTest, phoneTest, passwordTest, usernameBool = false;
 
 
     //athentication
@@ -29,6 +29,8 @@ public class RegisterUserActivity extends Activity {
 
     //firebase database
     DatabaseReference firebaseDatabase;
+    //user contact info
+    UserClass userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +43,14 @@ public class RegisterUserActivity extends Activity {
         regPassword = (EditText) findViewById(R.id.EditTextPassword2);
         confirmPass = (EditText) findViewById(R.id.EditTextConfirmPassword);
         regRegister = (Button) findViewById(R.id.registerButtonRegister);
+        username = (EditText) findViewById(R.id.EditTextUsername2);
 
         // athentication intialization
         auth = FirebaseAuth.getInstance();
         // database intialization
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
-
+        // contact info
+        userInfo = new UserClass();
 
         regRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,12 +61,13 @@ public class RegisterUserActivity extends Activity {
                 password = regPassword.getText().toString();
                 passwordCheck = confirmPass.getText().toString();
                 phoneNumber = regPhoneNumber.getText().toString();
-
+                usernameString = username.getText().toString();
 
                 //calls functions
                 checkEmail(email);
-                checkPassword(password);
                 checkPhoneNumber(phoneNumber);
+                checkUsername(usernameString);
+                checkPassword(password);
 
                 //insert into database
 //                DatabaseReference conditionRef = firebaseDatabase.child("condition");
@@ -73,26 +78,28 @@ public class RegisterUserActivity extends Activity {
 //                firebaseDatabase.child("user").child("dd").setValue("hello");
 
 
-                if (emailTest == true && passwordTest == true && phoneTest == true) {
+                if (emailTest == true && passwordTest == true && phoneTest == true && usernameBool == true) {
 
 
                     // Toast.makeText(RegisterUserActivity.this, "Valid Registration", Toast.LENGTH_SHORT).show();
 
-                    auth.createUserWithEmailAndPassword(email,password)
+                    auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterUserActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
 
-                                        System.out.println("email " + email);
-                                        UserClass testUser = new UserClass(email);
-                                    //insert into database
-                                    firebaseDatabase.child("user").setValue(testUser);
+                                        userInfo.setEmail(email);
+                                        userInfo.setPhoneNumber(phoneNumber);
+                                        userInfo.setUsername(usernameString);
+
+
+                                        //insert into database
+                                        firebaseDatabase.child(usernameString).setValue(userInfo);
 
                                         //taks is successful
                                         Toast.makeText(RegisterUserActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else{
+                                    } else {
                                         // failed
                                         Toast.makeText(RegisterUserActivity.this, "Account With Email Already Exist", Toast.LENGTH_SHORT).show();
                                     }
@@ -110,7 +117,27 @@ public class RegisterUserActivity extends Activity {
 
     }
 
+    //checks if username is valid
+    public void checkUsername(String x){
+        //special characters
+        String specialCharacters=" !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
 
+        for(int i = 0; i < x.length(); i++) {
+
+            //test if evey value of username is in special Chars, converts char to string
+            if (specialCharacters.contains(Character.toString(x.charAt(i)))) {
+                Toast.makeText(RegisterUserActivity.this, "Username Contains Special Chars", Toast.LENGTH_SHORT).show();
+                usernameBool = false;
+                return;
+            }
+        }
+        if(x.equals("") || x.isEmpty() ){
+            Toast.makeText(RegisterUserActivity.this, "Username is Empty", Toast.LENGTH_SHORT).show();
+            usernameBool = false;
+            return;
+        }
+        usernameBool = true;
+    }
     //checks if email meets criteria
     public String checkEmail(String email) {
 
@@ -153,8 +180,8 @@ public class RegisterUserActivity extends Activity {
         return password;
     }
 
-    public void checkPhoneNumber(String number){
-        if(number.length() != 10 || number.isEmpty() || number.equals("")){
+    public void checkPhoneNumber(String number) {
+        if (number.length() != 10 || number.isEmpty() || number.equals("")) {
             phoneTest = false;
             Toast.makeText(RegisterUserActivity.this, "Invalid Phone Number", Toast.LENGTH_SHORT).show();
             return;
