@@ -110,6 +110,9 @@ public class LoginSuccessActivity extends Activity implements
                 Intent reqIntent = new Intent(LoginSuccessActivity.this, RequestActivity.class);
                 startActivity(reqIntent);
                 return true;
+            case R.id.settings:
+                Intent setIntent = new Intent(LoginSuccessActivity.this,SettingsActivity.class);
+                startActivity(setIntent);
             default:
                 return super.onOptionsItemSelected(item);
         }

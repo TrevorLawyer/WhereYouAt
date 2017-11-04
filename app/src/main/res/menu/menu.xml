@@ -6,12 +6,12 @@
         android:title="contacts"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/settings"
-        android:title="settings"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/requests"
         android:title="Manage Requests"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/settings"
+        android:title="settings"
         app:showAsAction="never"/>
 
 </menu>
