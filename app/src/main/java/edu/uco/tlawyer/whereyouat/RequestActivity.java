@@ -35,7 +35,7 @@ public class RequestActivity extends Activity implements RequestFragment.PickCon
         // Sends a notification to a registered user.
         // Not fully functional until database is working.
         Notification.Builder n = new Notification.Builder(getApplicationContext());
-        //n.setSmallIcon(R.drawable.ic_icon_notify);
+        n.setSmallIcon(R.drawable.ic_icon_notify);
         n.setAutoCancel(true);
         n.setContentTitle("Notification from: Where You At");
         n.setContentText("You've sent a tracking request to: " + RequestFragment.users[i].getName());

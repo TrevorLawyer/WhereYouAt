@@ -5,14 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.uco.tlawyer.whereyouat.SettingsActivity">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/reset"
-            android:text="Reset Password"/>
-    </LinearLayout>
+            android:text="Reset Password"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/signOut"
+            android:text="Sign Out"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/reset"/>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
