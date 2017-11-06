@@ -88,14 +88,15 @@ public class RegisterUserActivity extends Activity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-
+                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                         userInfo.setEmail(email);
                                         userInfo.setPhoneNumber(phoneNumber);
                                         userInfo.setUsername(usernameString);
 
 
+
                                         //insert into database
-                                        firebaseDatabase.child(usernameString).setValue(userInfo);
+                                        firebaseDatabase.child("users").child(user.getUid()).setValue(userInfo);
 
                                         //taks is successful
                                         Toast.makeText(RegisterUserActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();

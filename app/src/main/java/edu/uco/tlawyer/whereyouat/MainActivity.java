@@ -72,7 +72,11 @@ public class MainActivity extends Activity {
 
                                             //check password and username before proceeding to login page
                                             Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
+                                            intent.putExtra("USERNAME", inputUsername);
+                                            intent.putExtra("PASSWORD", inputPassword);
+                                            //startTrackerService();
                                             startActivityForResult(intent, 1);
+
 
                                         }
                                         else{
@@ -108,5 +112,12 @@ public class MainActivity extends Activity {
             }
         });
 
+    }
+    private void startTrackerService() {
+        Intent i = new Intent(this, TrackerService.class);
+        i.putExtra("USER", inputUsername.toString());
+        i.putExtra("PASSWORD", inputPassword.toString());
+        startService(i);
+        finish();
     }
 }

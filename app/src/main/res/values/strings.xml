@@ -11,4 +11,7 @@
     <string name="usernameLog">Username</string>
     <string name="sendReq">Send request to?</string>
     <string name="sendReqButton">Select user</string>
+    <string name="notification_text">Someone on WhereYouAt Wants to know your location</string>
+    <string name="transport_id" translatable="false">123</string>
+    <string name="firebase_path" translatable="false">locations</string>
 </resources>

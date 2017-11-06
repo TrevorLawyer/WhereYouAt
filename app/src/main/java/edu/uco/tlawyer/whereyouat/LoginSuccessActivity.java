@@ -45,6 +45,7 @@ public class LoginSuccessActivity extends Activity implements
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
+    String username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +54,31 @@ public class LoginSuccessActivity extends Activity implements
         mmap = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.trackmap);
         mmap.getMapAsync(this);
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                username= null;
+                password = null;
+            } else {
+                username= extras.getString("USERNAME");
+                password = extras.getString("PASSWORD");
+            }
+        } else {
+            username= (String) savedInstanceState.getSerializable("USERNAME");
+            password= (String) savedInstanceState.getSerializable("PASSWORD");
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
 
 
+    }
+    private void startTrackerService() {
+        Intent i = new Intent(this, TrackerService.class);
+        i.putExtra("USER", username.toString());
+        i.putExtra("PASSWORD", password.toString());
+        startService(i);
+        finish();
     }
 
     public void onMapReady(GoogleMap googleMap) {
@@ -80,6 +101,8 @@ public class LoginSuccessActivity extends Activity implements
             gmap.setMyLocationEnabled(true);
         }
         gmap.setPadding(-10,80,-10,-10);
+
+
     }
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -196,16 +219,16 @@ public class LoginSuccessActivity extends Activity implements
 
         //stop location updates when Activity is no longer active
         if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
+           LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+       }
     }
     @Override
     protected void onResume() {
         super.onResume();
-        if (mPermissionDenied) {
-            // Permission was not granted, display error dialog.
+       if (mPermissionDenied) {
+           // Permission was not granted, display error dialog.
             showMissingPermissionError();
-            mPermissionDenied = false;
+          mPermissionDenied = false;
         }
     }
 
