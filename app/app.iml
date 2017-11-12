@@ -104,6 +104,7 @@
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" scope="TEST" name="runner-0.5" level="project" />
+    <orderEntry type="library" exported="" name="mail" level="project" />
     <orderEntry type="library" exported="" name="play-services-tagmanager-v4-impl-11.0.4" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="espresso-idling-resource-2.2.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-analytics-11.0.4" level="project" />
@@ -128,6 +129,7 @@
     <orderEntry type="library" exported="" name="support-fragment-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-11.0.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-vision-common-11.0.4" level="project" />
+    <orderEntry type="library" exported="" name="additionnal" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="exposed-instrumentation-api-publish-0.5" level="project" />
     <orderEntry type="library" exported="" name="firebase-database-11.0.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-wallet-11.0.4" level="project" />
@@ -143,6 +145,7 @@
     <orderEntry type="library" exported="" name="firebase-storage-common-11.0.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-11.0.4" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-25.2.0" level="project" />
+    <orderEntry type="library" exported="" name="activation" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-11.0.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-tasks-11.0.4" level="project" />
     <orderEntry type="library" exported="" name="firebase-common-11.0.4" level="project" />
@@ -183,5 +186,6 @@
     <orderEntry type="library" exported="" name="support-vector-drawable-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-iid-11.0.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-identity-11.0.4" level="project" />
+    <orderEntry type="library" exported="" name="android-android-25" level="project" />
   </component>
 </module>
