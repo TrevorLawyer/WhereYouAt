@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
                                             Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
                                             intent.putExtra("USERNAME", inputUsername);
                                             intent.putExtra("PASSWORD", inputPassword);
-                                            //startTrackerService();
+                                            startTrackerService();
                                             startActivityForResult(intent, 1);
 
 
