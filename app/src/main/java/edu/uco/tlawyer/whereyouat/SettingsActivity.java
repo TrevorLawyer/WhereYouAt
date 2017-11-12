@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SettingsActivity extends Activity {
     private Button reset;
     private Button signOut;
+    private Button contactsupport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
         reset = (Button)findViewById(R.id.reset);
         signOut = (Button) findViewById(R.id.signOut);
+        contactsupport = (Button) findViewById(R.id.settingSupport);
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +51,17 @@ public class SettingsActivity extends Activity {
                         });
                 AlertDialog alert = builder.create();
                 alert.show();
+            }
+        });
+        contactsupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent eintent = new Intent(Intent.ACTION_SEND);
+                eintent.setType("plain/text");
+                eintent.putExtra(Intent.EXTRA_EMAIL, new String[] { "whereyouat.tech@gmail.com" });
+                eintent.putExtra(Intent.EXTRA_SUBJECT, "subject");
+                eintent.putExtra(Intent.EXTRA_TEXT, "mail body");
+                startActivity(Intent.createChooser(eintent, ""));
             }
         });
 

@@ -17,17 +17,6 @@
         android:rowCount="10">
 
         <TextView
-            android:id="@+id/TextViewUsername"
-            android:layout_column="0"
-            android:layout_columnWeight="0"
-            android:layout_marginTop="20sp"
-            android:layout_row="0"
-            android:background="#ffffff"
-            android:text="@string/email"
-            android:textColor="#000000"
-            android:textSize="25sp" />
-
-        <TextView
             android:id="@+id/TextViewPassword"
             android:layout_column="0"
             android:layout_columnWeight="0"
@@ -86,6 +75,28 @@
             android:text="Create New Account"
             android:textColor="#ffffff"
             android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/TextViewUsername"
+            android:layout_column="0"
+            android:layout_columnWeight="0"
+            android:layout_marginTop="20sp"
+            android:layout_row="0"
+            android:background="#ffffff"
+            android:text="@string/email"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/support"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_column="1"
+            android:layout_row="4"
+            android:clickable="true"
+            android:text="Contact Support" />
 
     </GridLayout>
 
