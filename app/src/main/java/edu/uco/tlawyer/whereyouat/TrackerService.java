@@ -50,7 +50,7 @@ public class TrackerService extends Service {
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(this);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        final String path = "users/" + currentUser.getUid() + "/" + getString(R.string.firebase_path);
+        final String path = "users/" + currentUser.getUid() + "/" + getString(R.string.firebase_path) + "/location";
         int permission = ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION);
         if (permission == PackageManager.PERMISSION_GRANTED) {
