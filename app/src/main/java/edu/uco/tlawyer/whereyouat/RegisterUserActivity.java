@@ -101,7 +101,6 @@ public class RegisterUserActivity extends Activity {
                                             userInfo.setPhoneNumber(phoneNumber);
                                             userInfo.setUsername(usernameString);
 
-
                                             //insert into database
                                             firebaseDatabase.child("users").child(user.getUid()).setValue(userInfo);
 
