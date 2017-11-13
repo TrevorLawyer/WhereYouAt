@@ -29,8 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.io.*;
-
 /**
  * Convert lines into the canonical MIME format, that is,
  * terminate lines with CRLF. <p>

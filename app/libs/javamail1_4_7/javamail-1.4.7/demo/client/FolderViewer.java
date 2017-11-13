@@ -29,12 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.awt.*;
-import javax.mail.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-
 /**
  * @author	Christopher Cotton
  * @author	Bill Shannon

@@ -29,15 +29,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.io.*;
-import java.net.InetAddress;
-import java.util.Properties;
 import java.util.Date;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-
-import com.sun.mail.smtp.*;
+import java.util.Properties;
 
 /**
  * Demo app that shows how to construct and send an RFC822

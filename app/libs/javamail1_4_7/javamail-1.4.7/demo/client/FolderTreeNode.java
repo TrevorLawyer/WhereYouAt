@@ -29,10 +29,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.mail.Store;
 import javax.mail.Folder;
 import javax.mail.MessagingException;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Node which represents a Folder in the javax.mail apis. 

@@ -31,13 +31,12 @@
  */
 
 import com.sun.mail.util.logging.MailHandler;
-import java.util.logging.*;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Properties;
-import java.io.*;
+
+import javax.mail.internet.InternetAddress;
 
 /**
  * Demo for the different configurations for the MailHandler.

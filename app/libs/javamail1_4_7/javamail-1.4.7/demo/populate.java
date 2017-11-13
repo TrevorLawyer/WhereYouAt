@@ -29,9 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /*
  * Copy folder hierarchies between different Stores. This is a useful 
  * utility to populate new (and possibly empty) mail stores. Specify

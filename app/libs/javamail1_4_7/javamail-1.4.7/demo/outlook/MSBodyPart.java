@@ -29,11 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.io.*;
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /**
  * A special MimeBodyPart used with MSMessage.
  *

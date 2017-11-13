@@ -29,13 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.search.*;
-import javax.activation.*;
-
 /*
  * Search the given folder for messages matching the given
  * criteria.
