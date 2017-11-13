@@ -28,8 +28,16 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class LoginSuccessActivity extends Activity implements
         OnMapReadyCallback,
@@ -42,6 +50,7 @@ public class LoginSuccessActivity extends Activity implements
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+    private HashMap<String, Marker> mMarkers = new HashMap<>();
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
@@ -73,13 +82,6 @@ public class LoginSuccessActivity extends Activity implements
 
 
     }
-    private void startTrackerService() {
-        Intent i = new Intent(this, TrackerService.class);
-        i.putExtra("USER", username.toString());
-        i.putExtra("PASSWORD", password.toString());
-        startService(i);
-        finish();
-    }
 
     public void onMapReady(GoogleMap googleMap) {
 
@@ -101,7 +103,7 @@ public class LoginSuccessActivity extends Activity implements
             gmap.setMyLocationEnabled(true);
         }
         gmap.setPadding(-10,80,-10,-10);
-
+        subscribeToUpdates();
 
     }
     protected synchronized void buildGoogleApiClient() {
@@ -281,6 +283,55 @@ public class LoginSuccessActivity extends Activity implements
         //move map camera
         gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
 
+    }
+    private void subscribeToUpdates() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/MMr1SGW4IJZRwM3DS3bvDheDMor1/locations");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                setMarker(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+                setMarker(dataSnapshot);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                //Log.d(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private void setMarker(DataSnapshot dataSnapshot) {
+        // When a location update is received, put or update
+        // its value in mMarkers, which contains all the markers
+        // for locations received, so that we can build the
+        // boundaries required to show them all on the map at once
+        String key = dataSnapshot.getKey();
+        HashMap<String, Object> value = (HashMap<String, Object>) dataSnapshot.getValue();
+        double lat = Double.parseDouble(value.get("latitude").toString());
+        double lng = Double.parseDouble(value.get("longitude").toString());
+        LatLng location = new LatLng(lat, lng);
+        if (!mMarkers.containsKey(key)) {
+            mMarkers.put(key, gmap.addMarker(new MarkerOptions().title(key).position(location)));
+        } else {
+            mMarkers.get(key).setPosition(location);
+        }
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (Marker marker : mMarkers.values()) {
+            builder.include(marker.getPosition());
+        }
+        gmap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 300));
     }
 
 }
