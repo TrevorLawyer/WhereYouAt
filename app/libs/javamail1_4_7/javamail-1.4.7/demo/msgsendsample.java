@@ -29,12 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-
 /**
  * msgsendsample creates a very simple text/plain message and sends it.
  * <p>

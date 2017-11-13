@@ -30,9 +30,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.text.MessageFormat;
-import java.util.logging.*;
 import com.sun.mail.util.logging.MailHandler;
+
+import java.text.MessageFormat;
 
 /**
  * Creates an attachment name based on the number of records and errors.

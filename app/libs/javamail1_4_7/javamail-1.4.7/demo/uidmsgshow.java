@@ -29,12 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-
 /*
  * Demo app that exercises the Message interfaces.
  * Access message given its UID.

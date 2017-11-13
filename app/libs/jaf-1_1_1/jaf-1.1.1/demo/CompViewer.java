@@ -31,12 +31,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.awt.*;
-import java.beans.*;
-import java.lang.reflect.Method;
-import java.io.*;
-import java.awt.event.*;
-
 /**
  * Class <code>CompViewer</code> creates a 'viewer' component
  * that implements the CommandObject interface.

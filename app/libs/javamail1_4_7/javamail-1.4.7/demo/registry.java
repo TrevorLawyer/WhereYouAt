@@ -29,11 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.*;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /**
  * This class demonstrates how to query the registry for available
  * Providers, set default providers, etc. See section 5.2 in the

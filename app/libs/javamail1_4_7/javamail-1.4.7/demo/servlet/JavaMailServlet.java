@@ -29,16 +29,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
-
+import javax.mail.Part;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.mail.*;
-import javax.mail.Part;
-import javax.mail.internet.*;
-import javax.activation.*;
 
 
 /**

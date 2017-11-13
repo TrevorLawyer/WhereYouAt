@@ -31,10 +31,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.io.*;
-import javax.activation.*;
-import java.awt.datatransfer.*;
-
 public class DCHTest2 {
     private FileDataSource fds = null;
     private MailcapCommandMap cmdMap = null;

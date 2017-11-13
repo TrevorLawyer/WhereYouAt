@@ -31,10 +31,6 @@
 
 package demo;
 
-import java.util.*;
-import javax.mail.*;
-import javax.naming.*;
-
 /**
  * This JavaBean is used to store mail user information.
  */

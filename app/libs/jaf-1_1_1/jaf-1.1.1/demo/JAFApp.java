@@ -31,12 +31,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
-import java.io.*;
-import javax.activation.*;
-
 public class JAFApp extends Frame implements WindowListener, ItemListener, ActionListener {
 
     // UI stuff...

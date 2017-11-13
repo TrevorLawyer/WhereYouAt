@@ -30,10 +30,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.io.*;
-import java.security.*;
-import java.util.logging.*;
-
 /**
  * An error manager used to store mime messages from the <tt>MailHandler</tt>
  * to the file system when the email server is unavailable or unreachable.

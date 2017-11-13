@@ -29,10 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-
 /**
  * A special MultipartDataSource used with MSMessage.
  *

@@ -29,8 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.io.*;
-
 /**
  * Convert the various newline conventions to the local platform's
  * newline convention. <p>

@@ -30,7 +30,6 @@
  */
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.mail.*;
 
 /**
  * Node which represents a Store in the javax.mail apis. 

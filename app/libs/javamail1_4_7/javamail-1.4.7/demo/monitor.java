@@ -29,14 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-import javax.mail.event.*;
-import javax.activation.*;
-
-import com.sun.mail.imap.*;
-
 /* Monitors given mailbox for new mail */
 
 public class monitor {

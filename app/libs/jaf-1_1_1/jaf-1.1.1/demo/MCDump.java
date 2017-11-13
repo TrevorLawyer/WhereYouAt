@@ -30,11 +30,6 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import java.io.*;
-import java.beans.*;
-import com.sun.activation.registries.*;
-import javax.activation.*;
-
 /**
  * Dump out everything we know about a MailcapCommandMap.
  */
