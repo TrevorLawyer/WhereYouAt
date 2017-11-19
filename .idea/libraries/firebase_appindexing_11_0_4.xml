@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="firebase-appindexing-11.0.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/c3dc0ca9ba02e63bc56de2f62e47de30932e01e6/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/c3dc0ca9ba02e63bc56de2f62e47de30932e01e6/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/21c7f48487f8d01ebf9456f0ffb745e3d9566674/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/21c7f48487f8d01ebf9456f0ffb745e3d9566674/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

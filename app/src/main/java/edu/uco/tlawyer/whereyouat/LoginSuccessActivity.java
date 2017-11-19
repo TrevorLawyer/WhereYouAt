@@ -5,6 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -37,6 +42,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 public class LoginSuccessActivity extends Activity implements
@@ -278,7 +287,10 @@ public class LoginSuccessActivity extends Activity implements
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = gmap.addMarker(markerOptions);
+        Bitmap markerIcon =getBitmapFromURL("gs://mobileapps-final.appspot.com/UserPics/sonobyani@gmail.com/userpic.jpg");
+        
+
+        mCurrLocationMarker = gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.fromBitmap(markerIcon)));
 
         //move map camera
         gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
@@ -332,6 +344,20 @@ public class LoginSuccessActivity extends Activity implements
             builder.include(marker.getPosition());
         }
         gmap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 300));
+    }
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            // Log exception
+            return null;
+        }
     }
 
 }
