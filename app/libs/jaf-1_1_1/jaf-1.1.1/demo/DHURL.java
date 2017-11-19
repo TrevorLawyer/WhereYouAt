@@ -31,10 +31,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.net.*;
-import java.io.*;
-import javax.activation.*;
-
 public class DHURL {
     URL url = null;
     DataHandler dh = null;

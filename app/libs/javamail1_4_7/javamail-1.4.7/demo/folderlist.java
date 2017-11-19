@@ -30,9 +30,6 @@
  */
 
 import java.util.Properties;
-import javax.mail.*;
-
-import com.sun.mail.imap.*;
 
 /**
  * Demo app that exercises the Message interfaces.

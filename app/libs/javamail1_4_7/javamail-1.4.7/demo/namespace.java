@@ -29,10 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.*;
-import java.io.*;
-import javax.mail.*;
-
 /*
  * Demo app that exercises the namespace interfaces.
  * Show the namespaces supported by a store.

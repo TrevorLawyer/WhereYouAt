@@ -29,10 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import javax.mail.*;
 import java.net.InetAddress;
-import java.awt.*;
-import javax.swing.*;
 
 /**
  * Simple Authenticator for requesting password information.

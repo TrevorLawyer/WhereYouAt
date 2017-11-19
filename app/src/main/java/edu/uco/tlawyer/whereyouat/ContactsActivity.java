@@ -10,11 +10,8 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,24 +42,53 @@ public class ContactsActivity extends Activity {
         });
 
         currentUser = new UserClass();
-//        currentUser.contactList.add("James");
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        ref.child("users").child(user.getUid()).child("contactList")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String databaseContact = dataSnapshot.getValue(String.class);
-                        currentUser.contactList.add(databaseContact);
-                        //currentUser.contactList.add(dataSnapshot.getValue(String.class));
-                    }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference contactRef = ref.child("users").child(user.getUid()).child("contactList");
+//                contactRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        String databaseContact = dataSnapshot.getValue(String.class);
+//                        currentUser.contactList.add(databaseContact);
+//                        //currentUser.contactList.add(dataSnapshot.getValue(String.class));
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+        String email = user.getEmail();
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-        fname.addAll(currentUser.contactList);
+        if (email.equals("david.babb81@gmail.com")) {
+            //if (fname.isEmpty()) {
+                fname.add("Addison Toscani");
+                fname.add("Seth Howell");
+                fname.add("Trevor Lawyer");
+            //}
+        }
+        else if (email.equals("devtrev88@gmail.com") || email.equals("trevorlawyer@gmail.com")) {
+            //if (fname.isEmpty()) {
+                fname.add("Addison Toscani");
+                fname.add("David Babb");
+                fname.add("Seth Howell");
+            //}
+        }
+        else if (email.equals("sonobyani@gmail.com")) {
+            //if (fname.isEmpty()) {
+                fname.add("Addison Toscani");
+                fname.add("David Babb");
+                fname.add("Trevor Lawyer");
+            //}
+        }
+        else {
+            //if (fname.isEmpty()) {
+                fname.add("David Babb");
+                fname.add("Seth Howell");
+                fname.add("Trevor Lawyer");
+            //}
+        }
+        //fname.addAll(currentUser.contactList);
 //        fname.add("Addison Toscani");
 //        fname.add("David Babb");
 //        fname.add("Seth Howell");

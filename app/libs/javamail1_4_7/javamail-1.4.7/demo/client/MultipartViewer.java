@@ -29,12 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.beans.*;
-import javax.activation.*;
-import javax.mail.*;
 import javax.swing.JPanel;
 
 

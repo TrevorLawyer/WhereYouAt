@@ -31,9 +31,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import javax.activation.*;
-import java.util.StringTokenizer;
 import java.util.Hashtable;
+import java.util.StringTokenizer;
 
 public class SimpleDCF implements DataContentHandlerFactory {
     Hashtable entry_hash = new Hashtable();

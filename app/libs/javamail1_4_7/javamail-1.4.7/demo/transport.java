@@ -29,12 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.event.*;
-import javax.activation.*;
-
 /**
  * transport is a simple program that creates a message, explicitly
  * retrieves a Transport from the session based on the type of the

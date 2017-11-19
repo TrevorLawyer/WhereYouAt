@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -100,7 +101,6 @@ public class RegisterUserActivity extends Activity {
                                             userInfo.setPhoneNumber(phoneNumber);
                                             userInfo.setUsername(usernameString);
 
-
                                             //insert into database
                                             firebaseDatabase.child("users").child(user.getUid()).setValue(userInfo);
 
@@ -154,9 +154,9 @@ public class RegisterUserActivity extends Activity {
 
                     //checks which radio button is checked
                     if (text.isChecked()) {
-                        Toast.makeText(RegisterUserActivity.this, "text process", Toast.LENGTH_SHORT).show();
-                        //Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
-                        //SmsManager.getDefault().sendTextMessage(phoneNumber,null,"validation code " + valString, null, null);
+                        //Toast.makeText(RegisterUserActivity.this, "text process", Toast.LENGTH_SHORT).show();
+                        //call function to send text
+                        sendMessage(phoneNumber, valString);
 
                     } else if (emailCode.isChecked()) {
 
@@ -186,19 +186,25 @@ public class RegisterUserActivity extends Activity {
                     } else {
                         Toast.makeText(RegisterUserActivity.this, "Need to select a Validate Method", Toast.LENGTH_SHORT).show();
                     }
-
-
                 }
-
             }
-
             private void updateUI(FirebaseUser user) {
             }
         });
-
-
     }
 
+    private void sendMessage(String x, String num2){
+
+        try {
+
+            //Toast.makeText(RegisterUserActivity.this, "code:  " +num2, Toast.LENGTH_SHORT).show();
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(x, null, "Type the following validation code in the app " + num2, null, null);
+            Toast.makeText(RegisterUserActivity.this, "Validation Code Sent (Texted)", Toast.LENGTH_SHORT).show();
+        }catch(Exception e){
+            Toast.makeText(RegisterUserActivity.this, "Error Sending Text", Toast.LENGTH_SHORT).show();
+        }
+    }
     private class HttpGetTask extends AsyncTask<String, String, Void> {
 
 
@@ -231,7 +237,7 @@ public class RegisterUserActivity extends Activity {
         @Override
         protected void onPostExecute(Void results) {
             System.out.println("IN Post Excute");
-            Toast.makeText(RegisterUserActivity.this, "Validation Code Sent", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterUserActivity.this, "Validation Code Sent (Emailed)", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -299,6 +305,7 @@ public class RegisterUserActivity extends Activity {
         return password;
     }
 
+    //checks phone number
     public void checkPhoneNumber(String number) {
         if (number.length() != 10 || number.isEmpty() || number.equals("")) {
             phoneTest = false;

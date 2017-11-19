@@ -31,9 +31,6 @@
 
 package demo;
 
-import java.io.*;
-import javax.mail.*;
-import javax.mail.internet.*;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

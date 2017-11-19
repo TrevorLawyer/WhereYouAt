@@ -29,8 +29,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 

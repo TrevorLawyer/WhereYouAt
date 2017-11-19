@@ -31,11 +31,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.awt.*;
-import java.io.*;
-import java.beans.*;
-import javax.activation.*;
-
 public class TextInternalizer extends Panel implements Externalizable {
     // UI Vars...
     private TextArea text_area = null;

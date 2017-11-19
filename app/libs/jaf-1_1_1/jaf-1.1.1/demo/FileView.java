@@ -31,11 +31,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.awt.*;
-import java.beans.*;
-import java.net.*;
-import javax.activation.*;
-
 public class FileView {
     private Frame frame;
 
