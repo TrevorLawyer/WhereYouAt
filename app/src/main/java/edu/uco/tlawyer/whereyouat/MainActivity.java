@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ public class MainActivity extends Activity {
     // Declare Varibles
     EditText usernameInput, passwordInput;
     Button registerButton, signinButton;
+    TextView support;
 
     //firebase Auth
     private FirebaseAuth singinAuth;
@@ -44,6 +46,7 @@ public class MainActivity extends Activity {
         //Initalize variables EditText
         usernameInput = (EditText) findViewById(R.id.EditTextUsername);
         passwordInput = (EditText) findViewById(R.id.EditTextPassword);
+        support = (TextView) findViewById(R.id.support);
         //Initalize variables Buttons
         registerButton = (Button) findViewById(R.id.ButtonRegister);
         signinButton = (Button) findViewById(R.id.ButtonLogin);
@@ -202,6 +205,17 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(MainActivity.this, RegisterUserActivity.class);
                 startActivityForResult(intent, 2);
 
+            }
+        });
+        support.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent eintent = new Intent(Intent.ACTION_SEND);
+                eintent.setType("plain/text");
+                eintent.putExtra(Intent.EXTRA_EMAIL, new String[] { "whereyouat.tech@gmail.com" });
+                eintent.putExtra(Intent.EXTRA_SUBJECT, "subject");
+                eintent.putExtra(Intent.EXTRA_TEXT, "mail body");
+                startActivity(Intent.createChooser(eintent, ""));
             }
         });
 
