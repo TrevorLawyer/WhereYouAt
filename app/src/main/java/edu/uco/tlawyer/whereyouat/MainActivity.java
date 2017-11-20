@@ -16,6 +16,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends Activity {
 
@@ -28,6 +33,7 @@ public class MainActivity extends Activity {
 
     //Strings
     String inputUsername, inputPassword = null;
+    String username, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,33 +68,120 @@ public class MainActivity extends Activity {
                     if (inputPassword.length() < 6) {
                         Toast.makeText(MainActivity.this, "Invalid Password Length", Toast.LENGTH_SHORT).show();
                     } else {
+                        if (!inputUsername.contains("@gmail.com")) {
+                            FirebaseUser me = FirebaseAuth.getInstance().getCurrentUser();
+                            String uid = "";
+                            if (me != null) {
+                                uid = me.getUid();
+                            }
+                            FirebaseDatabase myData = FirebaseDatabase.getInstance();
+                            final DatabaseReference myRef = myData.getReference("users");
+                            //DatabaseReference usernameRef = myRef.child(me.getUid()).child("username");
+                            DatabaseReference usernameRef = myRef.child(uid).child("username");
+                            final DatabaseReference emailRef = myRef.child(uid).child("email");
+                            usernameRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot != null) {
+                                        username = dataSnapshot.getValue(String.class);
+                                        //username = str;
+                                        if (inputUsername.equals(username)) {
+                                            emailRef.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    email = dataSnapshot.getValue(String.class);
+                                                    inputUsername = email;
+                                                    singinAuth.signInWithEmailAndPassword(inputUsername, inputPassword)
+                                                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
+                                                                        intent.putExtra("USERNAME", inputUsername);
+                                                                        intent.putExtra("PASSWORD", inputPassword);
+                                                                        startTrackerService();
+                                                                        startActivityForResult(intent, 1);
+                                                                    } else {
+                                                                        Toast.makeText(MainActivity.this, "not working", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                }
 
-//                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                        String name = user.getDisplayName();
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
 
-                        singinAuth.signInWithEmailAndPassword(inputUsername, inputPassword)
-                                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-
-                                            //check password and username before proceeding to login page
-                                            Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
-                                            intent.putExtra("USERNAME", inputUsername);
-                                            intent.putExtra("PASSWORD", inputPassword);
-                                            startTrackerService();
-                                            startActivityForResult(intent, 1);
-
-
+                                                }
+                                            });
                                         } else {
-                                            // failed ot log in
-                                            Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(MainActivity.this, "Invalid username entered", Toast.LENGTH_SHORT).show();
                                         }
-
                                     }
-                                });
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+//                            if (inputUsername.equals(username)) {
+//                                //DatabaseReference emailRef = myRef.child(me.getUid()).child("email");
+//                                DatabaseReference emailRef = myRef.child(uid).child("email");
+//                                emailRef.addValueEventListener(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                                        String str2 = dataSnapshot.getValue(String.class);
+//                                        inputUsername = str2;
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancelled(DatabaseError databaseError) {
+//
+//                                    }
+//                                });
+//                                singinAuth.signInWithEmailAndPassword(inputUsername, inputPassword)
+//                                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                                if (task.isSuccessful()) {
+//                                                    Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
+//                                                    intent.putExtra("USERNAME", inputUsername);
+//                                                    intent.putExtra("PASSWORD", inputPassword);
+//                                                    startTrackerService();
+//                                                    startActivityForResult(intent, 1);
+//                                                } else {
+//                                                    Toast.makeText(MainActivity.this, "not working", Toast.LENGTH_SHORT).show();
+//                                                }
+//                                            }
+//                                        });
+//                        } else {
+//                            Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                        }
+
+                        if (inputUsername.contains("@gmail.com")) {
+                            singinAuth.signInWithEmailAndPassword(inputUsername, inputPassword)
+                                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+
+                                                //check password and username before proceeding to login page
+                                                Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
+                                                intent.putExtra("USERNAME", inputUsername);
+                                                intent.putExtra("PASSWORD", inputPassword);
+                                                startTrackerService();
+                                                startActivityForResult(intent, 1);
 
 
+                                            } else {
+                                                // failed ot log in
+                                                Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+                                    });
+
+                        }
                     }
 
                 } else {
@@ -113,6 +206,7 @@ public class MainActivity extends Activity {
         });
 
     }
+
 
     private void startTrackerService() {
         Intent i = new Intent(this, TrackerService.class);
