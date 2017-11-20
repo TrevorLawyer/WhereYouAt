@@ -2,7 +2,7 @@
     <string name="app_name">WhereYouAt</string>
     <string name="retype">Retype Pass</string>
     <string name="confirm">Confirm Pass: </string>
-    <string name="passMin">Six Chars Min</string>
+    <string name="passMin"> Six Chars Min</string>
     <string name="password">Password: </string>
     <string name="username">Phone Number:</string>
     <string name="emailHint">Type Email</string>
