@@ -22,6 +22,7 @@
             android:layout_columnWeight="0"
             android:layout_marginTop="20sp"
             android:layout_row="0"
+            android:background="#ffffff"
             android:text="@string/email"
             android:textColor="#000000"
             android:textSize="25sp" />
@@ -32,6 +33,7 @@
             android:layout_columnWeight="0"
             android:layout_marginTop="20sp"
             android:layout_row="1"
+            android:background="#ffffff"
             android:text="@string/password"
             android:textColor="#000000"
             android:textSize="25sp" />
@@ -43,8 +45,8 @@
             android:layout_columnWeight="0"
             android:layout_marginTop="20sp"
             android:layout_row="0"
+            android:background="#ffffff"
             android:hint="@string/usernameLog"
-            android:textColorHint="#000000"
             android:textColor="#000000"
             android:textSize="25sp" />
 
@@ -54,20 +56,12 @@
             android:layout_columnWeight="0"
             android:layout_marginTop="20sp"
             android:layout_row="1"
+            android:background="#ffffff"
             android:hint="@string/passMin"
-            android:textColorHint="#000000"
             android:inputType="textPassword"
             android:textColor="#000000"
             android:textSize="25sp" />
 
-        <TextView
-            android:text="RESET PASSWORD"
-            android:layout_gravity="right"
-            android:layout_column="1"
-            android:textSize="17sp"
-            android:textColor="#a30303"
-            android:onClick="passwordReset"
-            />
 
         <Button
             android:id="@+id/ButtonLogin"

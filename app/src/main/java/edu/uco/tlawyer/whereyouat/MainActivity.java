@@ -2,6 +2,7 @@ package edu.uco.tlawyer.whereyouat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -14,8 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-//import android.support.annotation.NonNull;
+import com.google.firebase.auth.UserInfo;
 
 public class MainActivity extends Activity {
 
@@ -24,9 +24,7 @@ public class MainActivity extends Activity {
     Button registerButton, signinButton;
 
     //firebase Auth
-    private static FirebaseAuth singinAuth;
-    //user contact info
-    UserClass userInfo;
+    private FirebaseAuth singinAuth;
 
     //Strings
     String inputUsername, inputPassword = null;
@@ -46,8 +44,6 @@ public class MainActivity extends Activity {
 
         //Auth
         singinAuth = FirebaseAuth.getInstance();
-        // contact info
-        userInfo = new UserClass();
 
 
         signinButton.setOnClickListener(new View.OnClickListener() {
@@ -55,16 +51,49 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
 
                 //sets varables that were entered in
-                inputUsername = usernameInput.getText().toString().trim();
+                inputUsername = usernameInput.getText().toString();
                 inputPassword = passwordInput.getText().toString();
 
-                //Toast.makeText(MainActivity.this, "Email: " + inputUsername, Toast.LENGTH_SHORT).show();
+                // System.out.println(" input :" +inputUsername + ":");
 
                 //checks if password and username are not empty
-                checkEmail(inputUsername, inputPassword);
+                if (!inputPassword.matches("") && !inputUsername.matches("")) {
+
+                    if (inputPassword.length() < 6) {
+                        Toast.makeText(MainActivity.this, "Invalid Password Length", Toast.LENGTH_SHORT).show();
+                    } else {
+
+//                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                        String name = user.getDisplayName();
+
+                        singinAuth.signInWithEmailAndPassword(inputUsername, inputPassword)
+                                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+
+                                            //check password and username before proceeding to login page
+                                            Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
+                                            intent.putExtra("USERNAME", inputUsername);
+                                            intent.putExtra("PASSWORD", inputPassword);
+                                            startTrackerService();
+                                            startActivityForResult(intent, 1);
 
 
+                                        } else {
+                                            // failed ot log in
+                                            Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                                        }
 
+                                    }
+                                });
+
+
+                    }
+
+                } else {
+                    Toast.makeText(MainActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -85,78 +114,6 @@ public class MainActivity extends Activity {
 
     }
 
-    public void checkEmail(String emailX, String passwordX) {
-
-        passwordX = "000000000";
-        if (!emailX.equals("")) {
-            //authenticats user infomation and password
-            singinAuth.createUserWithEmailAndPassword(emailX, passwordX)
-                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            //if successful user added to database
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                user.delete();
-                                //insert into database
-                                //firebaseDatabase.child("users").child(user.getUid()).setValue(userInfo);
-                                //task is successful
-                                Toast.makeText(MainActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                // failed
-                               // Toast.makeText(MainActivity.this, "Email is Good", Toast.LENGTH_SHORT).show();
-                                emailIsGood();
-                                //Toast.makeText(MainActivity.this, "return type  " + typeToReturn[0], Toast.LENGTH_SHORT).show();
-
-                            }
-
-                        }
-                    });
-
-        } else {
-            Toast.makeText(MainActivity.this, "Fill In Email", Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
-    public void emailIsGood() {
-
-        //sets varables that were entered in
-        inputUsername = usernameInput.getText().toString().trim();
-        inputPassword = passwordInput.getText().toString();
-
-        if (inputPassword.length() < 6) {
-                        Toast.makeText(MainActivity.this, "Invalid Password Length", Toast.LENGTH_SHORT).show();
-        } else {
-
-                        //checks if user password matches user email
-                        singinAuth.signInWithEmailAndPassword(inputUsername, inputPassword)
-                                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        //user password and email match
-                                        if (task.isSuccessful()) {
-
-                                            //check password and username before proceeding to login page
-                                            Intent intent = new Intent(MainActivity.this, LoginSuccessActivity.class);
-                                            intent.putExtra("USERNAME", inputUsername);
-                                            intent.putExtra("PASSWORD", inputPassword);
-                                            startTrackerService();
-                                            startActivityForResult(intent, 1);
-
-
-                                        } else {
-                                            // password does not match email
-                                            Toast.makeText(MainActivity.this, "Invalid Password", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-                                });
-        }
-
-    }
-
     private void startTrackerService() {
         Intent i = new Intent(this, TrackerService.class);
         i.putExtra("USER", inputUsername.toString());
@@ -166,53 +123,57 @@ public class MainActivity extends Activity {
     }
 
     public void passwordReset(View v) {
-
-        final String emailAddress = usernameInput.getText().toString();
-        String passwordX = "000000000";
-
-        if (!emailAddress.equals("")) {
-            //authenticats user infomation and password
-            singinAuth.createUserWithEmailAndPassword(emailAddress, passwordX)
-                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            //if successful user added to database
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                //deletes current user
-                                user.delete();
-                                Toast.makeText(MainActivity.this, "No Email Exist ", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(MainActivity.this, "Create New Account ", Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                // call function to send email
-                                sendEmailReset(emailAddress);
-                            }
-                        }
-                    });
-        } else {
-            Toast.makeText(MainActivity.this, "Fill In Email", Toast.LENGTH_SHORT).show();
-        }
-    }
-    public void sendEmailReset(String Email){
-
+        //loop through all auth users
+        int counter = 0;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         //reset password part
         FirebaseAuth auth = FirebaseAuth.getInstance();
+        String emailAddress = usernameInput.getText().toString();
+        // checks if user null
+        if (user != null && !emailAddress.equals("")) {
+            //Toast.makeText(MainActivity.this, "in IF ", Toast.LENGTH_SHORT).show();
+            // going through all athenticated users
+            for (UserInfo profile : user.getProviderData()) {
+                //Toast.makeText(MainActivity.this, "in FOR ", Toast.LENGTH_SHORT).show();
+                // Id of the provider (ex: google.com)
+                String providerId = profile.getProviderId();
 
-        //sends email to user to reset password
-        auth.sendPasswordResetEmail(Email)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Password Reset has been Emailed ", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                // UID specific to the provider
+                String uid = profile.getUid();
+
+                // Name, email address, and profile photo Url
+                String name = profile.getDisplayName();
+                String email = profile.getEmail();
+                Uri photoUrl = profile.getPhotoUrl();
+
+                //if statement to check if emailed enter matches email the for loop is looking at
+                if (profile.getEmail().equals(emailAddress)) {
+                    //incrememnts int to show password reset is happening
+                    counter++;
+                    //sends email to user to reset password
+                    auth.sendPasswordResetEmail(emailAddress)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(MainActivity.this, "Reset Successful ", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+
+                }
+            }
+            //checks if counter was incremented by the email being in the database
+            if (counter != 0) {
+                Toast.makeText(MainActivity.this, "Password Reset has been Emailed ", Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(MainActivity.this, "No Email Exist ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Create New Account ", Toast.LENGTH_SHORT).show();}
+        }else
+            Toast.makeText(MainActivity.this, "Fill Out Email Address ", Toast.LENGTH_SHORT).show();
+
 
     }
-
-
 }

@@ -68,7 +68,7 @@ public class PasswordResetActivity extends Activity {
 
                     }
                 } else {
-                    Toast.makeText(PasswordResetActivity.this, "INVALD PASSWORD LENGTH", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PasswordResetActivity.this, "INVALID PASSWORD LENGTH", Toast.LENGTH_SHORT).show();
                 }
             }
         });
