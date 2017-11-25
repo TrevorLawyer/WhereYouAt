@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//
+
 
         //Initalize variables EditText
         usernameInput = (EditText) findViewById(R.id.EditTextUsername);
@@ -77,6 +77,11 @@ public class MainActivity extends Activity {
 
         //checks if email is empty
         if(!emailX.equals("")) {
+
+            if(!inputUsername.contains("@gmail.com")){
+                inputUsername = inputUsername.concat("@gmail.com");
+                //Toast.makeText(MainActivity.this, "Email: " + inputUsername, Toast.LENGTH_SHORT).show();
+            }
 
             //authenticats user email by seeing if it allows to create an account
             singinAuth.createUserWithEmailAndPassword(emailX, password2)
