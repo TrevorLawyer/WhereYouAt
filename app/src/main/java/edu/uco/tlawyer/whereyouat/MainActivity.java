@@ -54,6 +54,11 @@ public class MainActivity extends Activity {
                 inputUsername = usernameInput.getText().toString().trim();
                 inputPassword = passwordInput.getText().toString();
 
+                if(!inputUsername.contains("@gmail.com")){
+                    inputUsername = inputUsername.concat("@gmail.com");
+                    //Toast.makeText(MainActivity.this, "Email: " + inputUsername, Toast.LENGTH_SHORT).show();
+                }
+
                 //Toast.makeText(MainActivity.this, "Email: " + inputUsername, Toast.LENGTH_SHORT).show();
                 checkEmail(inputUsername);
             }
@@ -78,10 +83,6 @@ public class MainActivity extends Activity {
         //checks if email is empty
         if(!emailX.equals("")) {
 
-            if(!inputUsername.contains("@gmail.com")){
-                inputUsername = inputUsername.concat("@gmail.com");
-                //Toast.makeText(MainActivity.this, "Email: " + inputUsername, Toast.LENGTH_SHORT).show();
-            }
 
             //authenticats user email by seeing if it allows to create an account
             singinAuth.createUserWithEmailAndPassword(emailX, password2)
@@ -160,7 +161,13 @@ public class MainActivity extends Activity {
         //checks if email is empty and is a gmail account
         if(!inputUsername.equals("")) {
 
+            if(!inputUsername.contains("@gmail.com")){
+                inputUsername = inputUsername.concat("@gmail.com");
+                //Toast.makeText(MainActivity.this, "Email: " + inputUsername, Toast.LENGTH_SHORT).show();
+            }
+
             //authenticats user email by seeing if it allows to create an account
+            final String finalInputUsername = inputUsername;
             singinAuth.createUserWithEmailAndPassword(inputUsername, password2)
                     .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -176,7 +183,7 @@ public class MainActivity extends Activity {
                             } else {
                                 // if failed, email already exist and move on to verify passoword
                                 //Toast.makeText(MainActivity.this, "Loggin In", Toast.LENGTH_SHORT).show();
-                                sentReset();
+                                sentReset(finalInputUsername);
                             }
                         }
                     });
@@ -186,10 +193,10 @@ public class MainActivity extends Activity {
         }
 
     }
-    public void sentReset(){
+    public void sentReset(final String emailAddress){
         //reset password part
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        String emailAddress = usernameInput.getText().toString();
+        //String emailAddress = usernameInput.getText().toString();
 
         //sends email to user to reset password
         auth.sendPasswordResetEmail(emailAddress)
@@ -197,7 +204,7 @@ public class MainActivity extends Activity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Password Reset has been Emailed ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Password Reset has been Emailed " + emailAddress, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

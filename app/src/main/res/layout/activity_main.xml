@@ -18,10 +18,13 @@
 
         <TextView
             android:id="@+id/TextViewUsername"
+            android:layout_height="45dp"
             android:layout_column="0"
             android:layout_columnWeight="0"
             android:layout_marginTop="20sp"
             android:layout_row="0"
+            android:gravity="bottom"
+            android:layout_gravity="right"
             android:text="@string/email"
             android:textColor="#000000"
             android:textSize="25sp" />
@@ -37,16 +40,33 @@
             android:textSize="25sp" />
 
 
-        <EditText
-            android:id="@+id/EditTextUsername"
+        <LinearLayout
+
             android:layout_column="1"
             android:layout_columnWeight="0"
-            android:layout_marginTop="20sp"
             android:layout_row="0"
-            android:hint="@string/usernameLog"
-            android:textColorHint="#000000"
-            android:textColor="#000000"
-            android:textSize="25sp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/EditTextUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20sp"
+                android:hint="@string/usernameLog"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="1"
+                android:textColor="#000000"
+                android:layout_gravity="end"
+                android:gravity="bottom"
+                android:text="@string/gmail"
+                android:textSize="25sp" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/EditTextPassword"
@@ -55,19 +75,18 @@
             android:layout_marginTop="20sp"
             android:layout_row="1"
             android:hint="@string/passMin"
-            android:textColorHint="#000000"
             android:inputType="textPassword"
             android:textColor="#000000"
+            android:textColorHint="#000000"
             android:textSize="25sp" />
 
         <TextView
-            android:text="RESET PASSWORD"
-            android:layout_gravity="right"
             android:layout_column="1"
-            android:textSize="17sp"
-            android:textColor="#a30303"
+            android:layout_gravity="right"
             android:onClick="passwordReset"
-            />
+            android:text="RESET PASSWORD"
+            android:textColor="#a30303"
+            android:textSize="17sp" />
 
         <Button
             android:id="@+id/ButtonLogin"
