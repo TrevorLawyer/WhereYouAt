@@ -164,7 +164,7 @@ public class RegisterUserActivity extends Activity {
                         sendMessage(phoneNumber, valString);
 
                     } else if (emailCode.isChecked()) {
-                        Toast.makeText(RegisterUserActivity.this, "Email: " + email, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(RegisterUserActivity.this, "Email: " + email, Toast.LENGTH_SHORT).show();
 
 
                         //Now send the message
