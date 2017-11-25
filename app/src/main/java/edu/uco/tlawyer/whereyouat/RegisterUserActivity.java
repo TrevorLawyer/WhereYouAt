@@ -35,7 +35,12 @@ public class RegisterUserActivity extends Activity {
 
     EditText regPassword, regEmail, regPhoneNumber, confirmPass, username, codeEntered;
     Button regRegister, confirmCode;
-    String email, phoneNumber, password, passwordCheck, usernameString, valString;
+    static String email;
+    String phoneNumber;
+    String password;
+    String passwordCheck;
+    String usernameString;
+    String valString;
     Boolean emailTest, phoneTest, passwordTest, usernameBool = false;
     //Radio botton
     RadioGroup radioGroup;
@@ -131,7 +136,7 @@ public class RegisterUserActivity extends Activity {
                 usernameString = username.getText().toString();
 
                 //calls functions
-                checkEmail(email);
+                checkEmail();
                 checkPhoneNumber(phoneNumber);
                 checkUsername(usernameString);
                 checkPassword(password);
@@ -159,6 +164,8 @@ public class RegisterUserActivity extends Activity {
                         sendMessage(phoneNumber, valString);
 
                     } else if (emailCode.isChecked()) {
+                        Toast.makeText(RegisterUserActivity.this, "Email: " + email, Toast.LENGTH_SHORT).show();
+
 
                         //Now send the message
                         //System.out.println("Transport = " + email);
@@ -264,10 +271,15 @@ public class RegisterUserActivity extends Activity {
     }
 
     //checks if email meets criteria
-    public String checkEmail(String email) {
+    public String checkEmail() {
 
         //intialize stings values
-        email = regEmail.getText().toString();
+        email = regEmail.getText().toString().trim();
+
+        if(!email.contains("@gmail.com")){
+            email = email.concat("@gmail.com");
+            //Toast.makeText(RegisterUserActivity.this, "Email: " + email, Toast.LENGTH_SHORT).show();
+        }
         //length is working
         //System.out.println("Email length : " + email.length());
         //checks if email contains @
