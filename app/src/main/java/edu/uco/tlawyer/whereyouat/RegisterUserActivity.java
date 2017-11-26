@@ -1,9 +1,13 @@
 package edu.uco.tlawyer.whereyouat;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +50,8 @@ public class RegisterUserActivity extends Activity {
     RadioGroup radioGroup;
     RadioButton text, emailCode;
     static int num;
+
+    private int MY_PERMISSION_SEND_SMS = 0;
 
     //Session for Email
     static Session session;
@@ -159,10 +165,28 @@ public class RegisterUserActivity extends Activity {
 
                     //checks which radio button is checked
                     if (text.isChecked()) {
-                        //Toast.makeText(RegisterUserActivity.this, "text process", Toast.LENGTH_SHORT).show();
-                        //call function to send text
-                        sendMessage(phoneNumber, valString);
 
+                        int permissionCheck = 2;
+
+                        //Toast.makeText(RegisterUserActivity.this, "PerCK: " +MY_PERMISSION_SEND_SMS, Toast.LENGTH_SHORT).show();
+                       //checks permission is given
+                        if (ContextCompat.checkSelfPermission(RegisterUserActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                            // request permission (see result in onRequestPermissionsResult() method)
+                            ActivityCompat.requestPermissions(RegisterUserActivity.this,
+                                    new String[]{Manifest.permission.SEND_SMS},
+                                    MY_PERMISSION_SEND_SMS);
+
+                            //calls onRequestPermissionsResult() to handel decision making
+
+                        }else{
+                            //permission has already been accepted
+                            sendMessage(phoneNumber, valString);
+                        }
+                        //Toast.makeText(RegisterUserActivity.this, "PerCK: " +permissionCheck, Toast.LENGTH_SHORT).show();
+                        //checks permission 0= true -1 false
+//                        permissionCheck = ContextCompat.checkSelfPermission(RegisterUserActivity.this,
+//                                android.Manifest.permission.SEND_SMS);
+//
                     } else if (emailCode.isChecked()) {
                         //Toast.makeText(RegisterUserActivity.this, "Email: " + email, Toast.LENGTH_SHORT).show();
 
@@ -198,6 +222,33 @@ public class RegisterUserActivity extends Activity {
             private void updateUI(FirebaseUser user) {
             }
         });
+    }
+/////////////////////////////////end of OnCreated ///////////////////////////
+
+    //checks sms decision
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        //declined remember to accept
+        if (grantResults == null || grantResults.length == 0) {
+            remindPermission();
+            return;
+        }
+
+        //if accepted send message
+        if (requestCode == MY_PERMISSION_SEND_SMS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //access accepted send message function
+                sendMessage(phoneNumber, valString);
+            } else {
+                //access declined
+                remindPermission();
+            }
+        }
+    }
+
+    private void remindPermission() {
+        Toast.makeText(RegisterUserActivity.this, "Must Accept Permission", Toast.LENGTH_LONG).show();
     }
 
     private void sendMessage(String x, String num2){
