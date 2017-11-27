@@ -12,11 +12,13 @@ public class UserClass {
     String username;
     String name;
     String phoneNumber;
-    ArrayList<String> contactList;
+    ArrayList<ArrayList> contactList;
 
     UserClass(){
         contactList = new ArrayList<>() ;
-        contactList.add("test");
+        ArrayList<String> contacts = new ArrayList<>();
+        contactList.add(contacts);
+        contacts.add("test");
     }
 
     public String getEmail(){
