@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,16 +24,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginSuccessActivity extends Activity implements
@@ -72,7 +70,6 @@ public class LoginSuccessActivity extends Activity implements
         mmap = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.trackmap);
         mmap.getMapAsync(this);
-
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -113,7 +110,44 @@ public class LoginSuccessActivity extends Activity implements
             gmap.setMyLocationEnabled(true);
         }
         gmap.setPadding(-10,80,-10,-10);
-        subscribeToUpdates();
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + userID + "/contactList");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                populateTrackedContacts(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+                populateTrackedContacts(dataSnapshot);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                //Log.d(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+    }
+    private void populateTrackedContacts(DataSnapshot snapshot){
+        String key = snapshot.getKey();
+        ArrayList<String> contacts = (ArrayList<String>) snapshot.getValue();
+        for(int i = 0; i < contacts.size(); i++){
+            String contactID = contacts.get(i).toString();
+            if(!contactID.equals("test")) {
+                subscribeToUpdates(contactID);
+            }
+        }
 
     }
     protected synchronized void buildGoogleApiClient() {
@@ -288,17 +322,17 @@ public class LoginSuccessActivity extends Activity implements
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        Bitmap markerIcon =getBitmapFromURL("gs://mobileapps-final.appspot.com/UserPics/sonobyani@gmail.com/userpic.jpg");
+        //Bitmap markerIcon =getBitmapFromURL("gs://mobileapps-final.appspot.com/UserPics/sonobyani@gmail.com/userpic.jpg");
+        mCurrLocationMarker = gmap.addMarker(markerOptions);
 
-
-        mCurrLocationMarker = gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.fromBitmap(markerIcon)));
+       // mCurrLocationMarker = gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.fromBitmap(markerIcon)));
 
         //move map camera
-        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
+        //gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
 
     }
-    private void subscribeToUpdates() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/MMr1SGW4IJZRwM3DS3bvDheDMor1/locations");
+    private void subscribeToUpdates(String userID) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + userID + "/locations");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
@@ -344,7 +378,7 @@ public class LoginSuccessActivity extends Activity implements
         for (Marker marker : mMarkers.values()) {
             builder.include(marker.getPosition());
         }
-        gmap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 300));
+        //gmap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 8));
     }
     public static Bitmap getBitmapFromURL(String src) {
         try {
