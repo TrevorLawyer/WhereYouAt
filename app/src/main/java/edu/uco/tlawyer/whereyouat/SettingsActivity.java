@@ -5,20 +5,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,15 +22,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class SettingsActivity extends Activity {
     private Button reset;
     private Button signOut;
     private Button contactsupport;
     private Button profilePic;
+    private Button changeUsername;
     int RESULT_LOAD_IMG = 1;
 
 
@@ -49,6 +42,7 @@ public class SettingsActivity extends Activity {
         signOut = (Button) findViewById(R.id.signOut);
         profilePic =(Button) findViewById(R.id.picture);
         contactsupport = (Button) findViewById(R.id.settingSupport);
+        changeUsername = (Button) findViewById(R.id.username_button);
 
 
         profilePic.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +54,14 @@ public class SettingsActivity extends Activity {
 
             }
 
+        });
+
+        changeUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, ChangeUsernameActivity.class);
+                startActivity(intent);
+            }
         });
 
 

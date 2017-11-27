@@ -23,13 +23,16 @@
         <activity android:name=".LoginSuccessActivity" />
         <activity android:name=".ContactsActivity" />
         <activity android:name=".RequestActivity" />
-        <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
 
         <service android:name=".FirebaseTokenID">
             <intent-filter>
@@ -50,6 +53,7 @@
             android:enabled="true"
             android:exported="true" />
 
+        <activity android:name=".ChangeUsernameActivity"></activity>
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.uco.tlawyer.whereyouat.SettingsActivity">
+    tools:context="edu.uco.tlawyer.whereyouat.ChangeUsernameActivity">
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -23,48 +23,51 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1">
 
-        <Button
-            android:id="@+id/picture"
+        <TextView
+            android:id="@+id/usernameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/reset"
-            android:layout_centerHorizontal="true"
-            android:text="Set Profile Picture" />
+            android:text="Current Username:  "
+            android:textSize="20sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:id="@+id/usernameView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_toEndOf="@+id/usernameText"
+            android:layout_marginTop="50dp"/>
+
+        <TextView
+            android:id="@+id/changeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Username:  "
+            android:textSize="20sp"
+            android:layout_below="@+id/usernameText"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/usernameEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_toEndOf="@+id/changeText"
+            android:layout_marginTop="90dp"/>
 
         <Button
-            android:id="@+id/reset"
+            android:id="@+id/confirmChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Confirm Change"
+            android:textSize="20sp"
+            android:layout_below="@+id/changeText"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="Reset Password" />
+            android:layout_marginTop="30dp"/>
 
-        <Button
-            android:id="@+id/signOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/username_button"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:text="Sign Out" />
-
-        <Button
-            android:id="@+id/settingSupport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/signOut"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
-            android:text="Contact Support" />
-
-        <Button
-            android:id="@+id/username_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/settingSupport"
-            android:layout_below="@+id/picture"
-            android:layout_marginTop="12dp"
-            android:text="Change Username" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
