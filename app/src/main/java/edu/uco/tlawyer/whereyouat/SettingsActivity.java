@@ -127,7 +127,7 @@ public class SettingsActivity extends Activity {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://mobileapps-final.appspot.com/UserPics");
-        StorageReference mountainImagesRef = storageRef.child(user.getEmail() + "/" + "userpic" + ".jpg");
+        StorageReference mountainImagesRef = storageRef.child(user.getUid() + "/" + "userpic" + ".jpg");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
         byte[] data = baos.toByteArray();

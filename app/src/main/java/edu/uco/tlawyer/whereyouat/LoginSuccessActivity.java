@@ -72,6 +72,7 @@ public class LoginSuccessActivity extends Activity implements
         mmap = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.trackmap);
         mmap.getMapAsync(this);
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -288,7 +289,7 @@ public class LoginSuccessActivity extends Activity implements
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         Bitmap markerIcon =getBitmapFromURL("gs://mobileapps-final.appspot.com/UserPics/sonobyani@gmail.com/userpic.jpg");
-        
+
 
         mCurrLocationMarker = gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.fromBitmap(markerIcon)));
 

@@ -24,7 +24,6 @@
             android:layout_marginTop="20sp"
             android:layout_row="0"
             android:gravity="bottom"
-            android:layout_gravity="right"
             android:text="@string/email"
             android:textColor="#000000"
             android:textSize="25sp" />
@@ -52,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20sp"
-                android:hint="@string/usernameLog"
+                android:hint="example"
                 android:textColor="#000000"
                 android:textColorHint="#000000"
                 android:textSize="25sp" />
@@ -80,14 +79,6 @@
             android:textColorHint="#000000"
             android:textSize="25sp" />
 
-        <TextView
-            android:layout_column="1"
-            android:layout_gravity="right"
-            android:onClick="passwordReset"
-            android:text="RESET PASSWORD"
-            android:textColor="#a30303"
-            android:textSize="17sp" />
-
         <Button
             android:id="@+id/ButtonLogin"
             android:layout_columnSpan="2"
@@ -97,6 +88,14 @@
             android:text="Login"
             android:textColor="#ffffff"
             android:textSize="25sp" />
+        <TextView
+            android:layout_column="1"
+            android:layout_gravity="center_vertical"
+            android:onClick="passwordReset"
+            android:text="@string/reset_password"
+            android:textColor="#a30303"
+            android:textSize="22sp"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/ButtonRegister"

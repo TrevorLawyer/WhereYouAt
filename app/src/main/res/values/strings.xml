@@ -9,6 +9,7 @@
     <string name="email">Email: </string>
     <string name="usernameHint">10 digit Number</string>
     <string name="usernameLog">Username</string>
+    <string name="reset_password"><u>RESET PASSWORD</u></string>
     <string name="sendReq">Send request to?</string>
     <string name="sendReqButton">Select user</string>
     <string name="notification_text">Someone on WhereYouAt Wants to know your location</string>
