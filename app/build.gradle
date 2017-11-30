@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "edu.uco.tlawyer.whereyouat"
@@ -31,23 +31,31 @@ dependencies {
     compile files('libs/mail.jar')
     //compile files('libs/javamail1_4_7/javamail-1.4.7/mail.jar')
     //compile files('libs/javamail1_4_5/javamail-1.4.5/mail.jar')
-    compile 'com.google.android.gms:play-services:11.0.4'
+    //compile 'com.android.support:appcompat-v7:26.+'
+    compile('com.android.support:design:26.0.1') {
+        exclude module: 'animated-vector-drawable'
+    }
+    compile('com.android.support:cardview-v7:26.0.1') {
+        exclude module: 'animated-vector-drawable'
+    }
+    compile('com.android.support:recyclerview-v7:26.0.1') {
+        exclude module: 'animated-vector-drawable'
+    }
+    //compile 'com.google.android.gms:play-services:11.6.2'
+    compile 'com.google.android.gms:play-services-maps:11.6.2'
+    compile 'com.google.android.gms:play-services-location:11.6.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.firebase:firebase-auth:11.0.4'
-    compile 'com.google.firebase:firebase-messaging:11.0.4'
-    compile 'com.google.firebase:firebase-database:11.0.4'
-    compile 'com.google.firebase:firebase-storage:11.0.4'
-    compile 'com.google.firebase:firebase-core:11.0.4'
-    compile 'com.google.android.gms:play-services-auth:11.0.4'
+    compile 'com.google.firebase:firebase-auth:11.6.2'
+    compile 'com.google.firebase:firebase-messaging:11.6.2'
+    compile 'com.google.firebase:firebase-database:11.6.2'
+    compile 'com.google.firebase:firebase-storage:11.6.2'
+    compile 'com.google.firebase:firebase-core:11.6.2'
+    compile 'com.firebaseui:firebase-ui-auth:2.3.0'
+    compile 'com.firebaseui:firebase-ui-database:2.3.0'
+    compile 'com.google.android.gms:play-services-auth:11.6.2'
+//    compile (project(":react-native-google-signin")) {
+//        exclude group: "com.google.android.gms"
+//    }
     testCompile 'junit:junit:4.12'
 }
-
-
-
-
-
-
-
-
-
 apply plugin: 'com.google.gms.google-services'

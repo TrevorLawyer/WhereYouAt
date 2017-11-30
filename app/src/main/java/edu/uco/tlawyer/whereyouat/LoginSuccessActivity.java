@@ -175,6 +175,10 @@ public class LoginSuccessActivity extends Activity implements
                 Intent intent = new Intent(LoginSuccessActivity.this, ContactsActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.usersOnline:
+                Intent i = new Intent(LoginSuccessActivity.this, UsersOnline.class);
+                startActivity(i);
+                return true;
             case R.id.requests:
                 Intent reqIntent = new Intent(LoginSuccessActivity.this, RequestActivity.class);
                 startActivity(reqIntent);
@@ -182,6 +186,7 @@ public class LoginSuccessActivity extends Activity implements
             case R.id.settings:
                 Intent setIntent = new Intent(LoginSuccessActivity.this,SettingsActivity.class);
                 startActivity(setIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

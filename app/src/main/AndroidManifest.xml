@@ -53,7 +53,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ChangeUsernameActivity"></activity>
+        <activity android:name=".ChangeUsernameActivity" />
+        <activity android:name=".UsersOnline"></activity>
     </application>
 
 </manifest>

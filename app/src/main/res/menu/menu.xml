@@ -6,6 +6,10 @@
         android:title="Contacts"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/usersOnline"
+        android:title="Users Online"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/requests"
         android:title="Manage Requests"
         app:showAsAction="never"/>
