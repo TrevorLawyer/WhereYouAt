@@ -21,10 +21,12 @@ import java.util.Collections;
 
 public class ContactsActivity extends Activity {
     ArrayList<String> fname = new ArrayList<>();
+    ArrayList<String> uIDs = new ArrayList<>();
     ArrayAdapter<String> adapter;
     UserClass currentUser;
     private FirebaseDatabase myData;
     private DatabaseReference myRef = null;
+    private DatabaseReference userRef = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +36,6 @@ public class ContactsActivity extends Activity {
         setContentView(R.layout.activity_contacts);
         Button addContact = (Button) findViewById(R.id.contactButton) ;
         addContact.setOnClickListener(new View.OnClickListener(){
-
-
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(ContactsActivity.this, NewContactActivity.class);
@@ -57,11 +57,28 @@ public class ContactsActivity extends Activity {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    fname.clear();
+                    uIDs.clear();
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         String name = postSnapshot.getValue(String.class);
-                        fname.add(name);
+                        uIDs.add(name);
                     }
+                    for (int i = 0; i < uIDs.size(); i++) {
+                        userRef = myData.getReference("users").child(uIDs.get(i)).child("username");
+                        userRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String uName = dataSnapshot.getValue(String.class);
+                                fname.add(uName);
+                                Collections.sort(fname);
+                                adapter.notifyDataSetChanged();
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
                     Collections.sort(fname);
                     adapter.notifyDataSetChanged();
 //                    GenericTypeIndicator<List<String>> gti = new GenericTypeIndicator<List<String>>() {};
@@ -82,7 +99,23 @@ public class ContactsActivity extends Activity {
 
                 }
             });
-
+//        for (int i = 0; i < uIDs.size(); i++) {
+//            userRef = myData.getReference("users").child(uIDs.get(i)).child("username");
+//            userRef.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    String uName = dataSnapshot.getValue(String.class);
+//                    fname.add(uName);
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//            Collections.sort(fname);
+//            adapter.notifyDataSetChanged();
+//        }
 
 
 //        String email = user.getEmail();

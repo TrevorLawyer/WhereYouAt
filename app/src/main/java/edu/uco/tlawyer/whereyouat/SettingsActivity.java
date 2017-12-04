@@ -84,6 +84,7 @@ public class SettingsActivity extends Activity {
                                 FirebaseAuth.getInstance().signOut();
                                 startActivity(new Intent(SettingsActivity.this, MainActivity.class));
                                 finish();
+                                LoginSuccessActivity.instance.finish();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override

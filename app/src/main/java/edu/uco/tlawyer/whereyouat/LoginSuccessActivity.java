@@ -43,7 +43,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginSuccessActivity extends Activity implements
@@ -58,6 +57,7 @@ public class LoginSuccessActivity extends Activity implements
     Location mLastLocation;
     Marker mCurrLocationMarker;
     private HashMap<String, Marker> mMarkers = new HashMap<>();
+    public static LoginSuccessActivity instance = null;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
@@ -66,6 +66,7 @@ public class LoginSuccessActivity extends Activity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.activity_login_success);
         mmap = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.trackmap);
@@ -111,44 +112,44 @@ public class LoginSuccessActivity extends Activity implements
         }
         gmap.setPadding(-10,80,-10,-10);
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + userID + "/contactList");
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                populateTrackedContacts(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                populateTrackedContacts(dataSnapshot);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                //Log.d(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-
-    }
-    private void populateTrackedContacts(DataSnapshot snapshot){
-        String key = snapshot.getKey();
-        ArrayList<String> contacts = (ArrayList<String>) snapshot.getValue();
-        for(int i = 0; i < contacts.size(); i++){
-            String contactID = contacts.get(i).toString();
-            if(!contactID.equals("test")) {
-                subscribeToUpdates(contactID);
-            }
-        }
-
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + userID + "/contactList");
+//        ref.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+//                populateTrackedContacts(dataSnapshot);
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+//                populateTrackedContacts(dataSnapshot);
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                //Log.d(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
+//
+//
+//    }
+//    private void populateTrackedContacts(DataSnapshot snapshot){
+//        String key = snapshot.getKey();
+//        ArrayList<String> contacts = (ArrayList<String>) snapshot.getValue();
+//        for(int i = 0; i < contacts.size(); i++){
+//            String contactID = contacts.get(i).toString();
+//            if(!contactID.equals("test")) {
+//                subscribeToUpdates(contactID);
+//            }
+//        }
+//
     }
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
