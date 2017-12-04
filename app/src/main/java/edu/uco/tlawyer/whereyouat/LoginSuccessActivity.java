@@ -24,6 +24,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -43,6 +44,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginSuccessActivity extends Activity implements
@@ -56,6 +58,7 @@ public class LoginSuccessActivity extends Activity implements
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+    ArrayList<Marker> markersArray = new ArrayList<>();
     private HashMap<String, Marker> mMarkers = new HashMap<>();
     public static LoginSuccessActivity instance = null;
 
@@ -112,44 +115,44 @@ public class LoginSuccessActivity extends Activity implements
         }
         gmap.setPadding(-10,80,-10,-10);
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + userID + "/contactList");
-//        ref.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-//                populateTrackedContacts(dataSnapshot);
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-//                populateTrackedContacts(dataSnapshot);
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                //Log.d(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
-//
-//
-//    }
-//    private void populateTrackedContacts(DataSnapshot snapshot){
-//        String key = snapshot.getKey();
-//        ArrayList<String> contacts = (ArrayList<String>) snapshot.getValue();
-//        for(int i = 0; i < contacts.size(); i++){
-//            String contactID = contacts.get(i).toString();
-//            if(!contactID.equals("test")) {
-//                subscribeToUpdates(contactID);
-//            }
-//        }
-//
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(userID).child("contactList");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                populateTrackedContacts(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+                populateTrackedContacts(dataSnapshot);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                //Log.d(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+    }
+    private void populateTrackedContacts(DataSnapshot snapshot){
+        String key = snapshot.getKey();
+        //ArrayList<String> contacts = (ArrayList<String>) snapshot.getValue();
+
+            String contactID = snapshot.getValue(String.class);
+            if(!contactID.equals("test")) {
+                subscribeToUpdates(contactID);
+
+        }
+
     }
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -334,7 +337,7 @@ public class LoginSuccessActivity extends Activity implements
        // mCurrLocationMarker = gmap.addMarker(markerOptions.icon(BitmapDescriptorFactory.fromBitmap(markerIcon)));
 
         //move map camera
-        //gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
+        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
 
     }
     private void subscribeToUpdates(String userID) {
@@ -375,6 +378,7 @@ public class LoginSuccessActivity extends Activity implements
         double lat = Double.parseDouble(value.get("latitude").toString());
         double lng = Double.parseDouble(value.get("longitude").toString());
         LatLng location = new LatLng(lat, lng);
+
         if (!mMarkers.containsKey(key)) {
             mMarkers.put(key, gmap.addMarker(new MarkerOptions().title(key).position(location)));
         } else {
@@ -384,7 +388,7 @@ public class LoginSuccessActivity extends Activity implements
         for (Marker marker : mMarkers.values()) {
             builder.include(marker.getPosition());
         }
-        //gmap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 8));
+        gmap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 8));
     }
     public static Bitmap getBitmapFromURL(String src) {
         try {
